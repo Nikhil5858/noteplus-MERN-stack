@@ -8,7 +8,7 @@ const User = require("../models/User");
 const { body, validationResult } = require("express-validator");
 
 router.post(
-  "/",
+  "/signup",
   [
     body("name", "Name must be at least 3 chr").isLength({ min: 3 }),
     body("email", "Envalid Email").isEmail(),

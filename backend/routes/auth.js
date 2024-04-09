@@ -1,11 +1,15 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const JWT_SECRET = 'This is Seriously a Secret Key';
 
 // model or schema to connect
 const User = require("../models/User");
 
 // express validator to validate widget
 const { body, validationResult } = require("express-validator");
+const user = require('../models/User');
 
 router.post(
   "/signup",
@@ -29,13 +33,25 @@ router.post(
     }
 
     // add data into the database
-    let newUser = await User.create({
+    //password hash and salt
+    const salt = await bcrypt.genSalt(10);
+    const securePass = await bcrypt.hash(req.body.password,salt);
+
+    await User.create({
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password,
+      password: securePass,
     });
 
-    return res.status(200).json({user: newUser });
+    //send authToken
+    const data = {
+      user:{
+        id:user.id
+      }
+    }
+    const authToken = jwt.sign(data,JWT_SECRET);
+    res.status(200).json({authToken});
+    // return res.status(200).json({user: newUser });
   }
 );
 

@@ -5,14 +5,14 @@ const jwt = require('jsonwebtoken');
 const JWT_SECRET = 'This is Seriously a Secret Key';
 
 // model or schema to connect
-const User = require("../models/User");
+const User = require("../../models/User");
 
 // express validator to validate widget
 const { body, validationResult } = require("express-validator");
-const user = require('../models/User');
+const user = require('../../models/User');
 
 router.post(
-  "/signup",
+  "/",
   [
     body("name", "Name must be at least 3 chr").isLength({ min: 3 }),
     body("email", "Envalid Email").isEmail(),

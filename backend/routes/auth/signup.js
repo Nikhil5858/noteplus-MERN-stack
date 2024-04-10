@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');  
 const JWT_SECRET = 'This is Seriously a Secret Key';
 
 // model or schema to connect

@@ -11,7 +11,7 @@ const User = require("../../models/User");
 const { body, validationResult } = require("express-validator");
 const user = require('../../models/User');
 
-router.post(
+router.get(
     "/",
     [
       body("email", "Envalid Email").isEmail(),
